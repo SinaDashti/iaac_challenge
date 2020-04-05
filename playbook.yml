@@ -14,6 +14,12 @@
     # - name: run ifconfig
     #   debug: var=hostvars[inventory_hostname]['ansible_enp0s8']['ipv4']['address']
 
+    - name: Get Disk Size
+      shell:
+        cmd: df -h | grep sda
+      register: out
+    - debug: msg="{{ out.stdout }}"
+
     - name: Get IP
       shell:
         cmd: ifconfig enp0s8 | grep mask
