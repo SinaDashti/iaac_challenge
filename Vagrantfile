@@ -1,8 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-BOX_IMAGE = "hashicorp/precise64"
-NAMES = ['master', 'worker']
+BOX_IMAGE = "ubuntu/bionic64"
+MACHINE = ["master","worker"]
+N = 1
 
 Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |v|
@@ -10,9 +11,14 @@ Vagrant.configure("2") do |config|
     v.cpus = 2
   end
 
-  NAMES.each do |name|
-    config.vm.define "#{name}" do |subconfig|
+  (0..N).each do |i|
+    config.vm.define MACHINE[i] do |subconfig|
       subconfig.vm.box = BOX_IMAGE
+      subconfig.vm.hostname = MACHINE[i]
+      subconfig.vm.network :private_network, ip: "192.168.3.#{10+i}"
+      # subconfig.vm.provision "ansible" do |ansible|
+      #   ansible.playbook = "playbook.yml"
+      # end
     end
   end
 
