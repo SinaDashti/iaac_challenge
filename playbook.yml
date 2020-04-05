@@ -1,0 +1,12 @@
+- hosts: all
+  become: true
+  gather_facts: True
+  tasks:
+    - name: Example of installing packages in ubuntu
+      apt:
+        pkg:
+        - python-pip
+        - tree
+        - zip
+        state: present
+        update_cache: yes
