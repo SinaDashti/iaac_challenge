@@ -1,0 +1,9 @@
+---
+# tasks file for /Users/arash/Desktop/galaxy/
+
+- import_tasks: install.yml
+- import_tasks: remove.yml
+- import_tasks: repo.yml
+- import_tasks: docker.yml
+- import_tasks: startDocker.yml
+- import_tasks: info.yml

@@ -1,0 +1,6 @@
+---
+# handlers file for /Users/arash/Desktop/galaxy/
+- name: restart docker
+  service:
+    name: docker
+    state: restarted

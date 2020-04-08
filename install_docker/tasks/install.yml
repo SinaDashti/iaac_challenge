@@ -1,0 +1,10 @@
+---
+
+- name: Install yum utils
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2

@@ -1,0 +1,29 @@
+---
+
+- name: Get IP
+  shell:
+    cmd: ip -4  a show eth1 | grep inet | awk '{print$2}'
+  register: ipv4_information
+- debug: msg="{{ ipv4_information.stdout }}"
+
+- name: Get hostname
+  shell:
+    cmd: hostname
+  register: hostname_information
+- debug: msg="{{ hostname_information.stdout }}"
+
+- name: Get Disk Size
+  shell:
+    cmd: df -h | grep sda
+  register: diskSize_information
+- debug: msg="{{ diskSize_information.stdout }}"
+
+- name: Showing some information
+  debug:
+    msg:
+    - "Vagrant does not come up with more than 40GB."
+    - "It needs specific changes and plugins."
+    - "Until now I could not solve this problem."
+    - "IP addresses and hostnames are checked."
+    - "Docker starts at the system start up."
+    - "Until now ansible-galaxy and available roles are not used."
