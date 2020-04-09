@@ -5,3 +5,21 @@
   roles:
     - install_docker
     - secure_docker_tls
+
+- hosts: master
+  become: True
+  gather_facts: True
+  roles:
+    - docker_restAPI_master
+
+- hosts: worker
+  become: True
+  gather_facts: True
+  roles:
+    - docker_restAPI_worker
+
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - docker_local
