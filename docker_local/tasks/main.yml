@@ -1,0 +1,23 @@
+---
+# tasks file for docker_local
+
+- name: REST API CALL - GET - MASTER
+  uri:
+    url: http://192.168.3.10:1010/version
+    method: GET
+  register: rest_get
+
+- name: GET MASTER INFO FROM LOCALHOST
+  debug:
+    msg: "{{ rest_get }}"
+
+
+- name: REST API CALL - GET - WORKER
+  uri:
+    url: http://192.168.3.11:1111/version
+    method: GET
+  register: rest_get
+
+- name: GET WORKER INFO FROM LOCALHOST
+  debug:
+    msg: "{{ rest_get }}"
