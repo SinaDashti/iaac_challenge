@@ -1,0 +1,34 @@
+---
+# tasks file for docker_restAPI_worker
+
+- name: Create systemd configuration directory for Docker service (systemd)
+  file:
+    dest: /etc/systemd/system/docker.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+# I know that I should give the port number with vars, but to avoid errors
+# and also make the works faster at this moment I added it here.
+- name: Set docker daemon options (systemd) - docker 18+
+  copy:
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://0.0.0.0:1111
+    dest: /etc/systemd/system/docker.service.d/env.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: reload systemd
+  systemd:
+    state: reloaded
+    name: docker
+    daemon_reload: yes
+
+- name: restart docker
+  service:
+    name: docker
+    state: restarted
